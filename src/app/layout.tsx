@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+// import { Canvas } from "@react-three/fiber";
+import Canvas from "@/app/components/Canvas";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -11,12 +12,36 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  projects,
 }: Readonly<{
   children: React.ReactNode;
+  projects: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {/* {projects} */}
+        <Canvas>{children}</Canvas>
+        {/* <main
+          className="flex min-h-screen flex-col items-center justify-between p-24"
+          ref={ref}
+        >
+          <Canvas
+            camera={{ fov: 75, position: [0, 0, 20] }}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+            }}
+            eventSource={ref.current}
+            eventPrefix="client"
+          >
+            {children}
+          </Canvas>
+        </main> */}
+      </body>
     </html>
   );
 }
