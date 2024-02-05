@@ -34,8 +34,8 @@ export default function Frame({
   const portal = useRef<PortalMaterialType>(null);
   const router = useRouter();
   const params = useParams();
-  const [hovered, hover] = useState(false);
-  useCursor(hovered);
+  // const [hovered, hover] = useState(false);
+  // useCursor(hovered);
   useFrame((state, dt) => {
     easing.damp(
       portal.current as { [key: string]: any },
@@ -79,14 +79,14 @@ export default function Frame({
         onDoubleClick={(e) => {
           router.push("/" + e.object.name);
         }}
-        onPointerOver={(e) => hover(true)}
-        onPointerOut={() => hover(false)}
+        // onPointerOver={(e) => hover(true)}
+        // onPointerOut={() => hover(false)}
       >
         {/* @ts-expect-error */}
         <roundedPlaneGeometry args={[width, height, 0.1]} />
         <MeshPortalMaterial
           ref={portal}
-          events={params?.id === id}
+          // events={params?.project === name}
           side={DoubleSide}
         >
           {bg && <color attach="background" args={[bg]} />}
