@@ -10,14 +10,13 @@ export default function Rig({
 }) {
   const { controls, scene } = useThree();
   const params = useParams();
-  console.log("params", params);
   useEffect(() => {
     const active = scene.getObjectByName(params?.project as string);
-    console.log("active", active);
     if (active) {
-      active.parent.localToWorld(position.set(0, 0.5, 0.25));
-      active.parent.localToWorld(focus.set(0, 0, -2));
+      active?.parent?.localToWorld(position.set(0, 0.5, 0.25));
+      active?.parent?.localToWorld(focus.set(0, 0, -2));
     }
+    // @ts-expect-error
     controls?.setLookAt(...position.toArray(), ...focus.toArray(), true);
   });
   return (

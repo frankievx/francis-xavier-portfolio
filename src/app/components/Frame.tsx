@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import {
   useCursor,
@@ -7,6 +7,7 @@ import {
   CameraControls,
   Gltf,
   Text,
+  PortalMaterialType,
 } from "@react-three/drei";
 import { easing } from "maath";
 import { useParams, useRouter } from "next/navigation";
@@ -30,14 +31,20 @@ export default function Frame({
   height?: number;
   children: React.ReactNode;
 }) {
-  const portal = useRef();
+  const portal = useRef<PortalMaterialType>(null);
   const router = useRouter();
   const params = useParams();
   const [hovered, hover] = useState(false);
   useCursor(hovered);
-  useFrame((state, dt) =>
-    easing.damp(portal.current, "blend", params?.id === id ? 1 : 0, 0.2, dt)
-  );
+  useFrame((state, dt) => {
+    easing.damp(
+      portal.current as { [key: string]: any },
+      "blend",
+      params?.id === id ? 1 : 0,
+      0.2,
+      dt
+    );
+  });
   return (
     <group {...props}>
       {/* <Text
@@ -78,13 +85,14 @@ export default function Frame({
         onPointerOver={(e) => hover(true)}
         onPointerOut={() => hover(false)}
       >
+        {/* @ts-expect-error */}
         <roundedPlaneGeometry args={[width, height, 0.1]} />
         <MeshPortalMaterial
           ref={portal}
           events={params?.id === id}
           side={DoubleSide}
         >
-          <color attach="background" args={[bg]} />
+          {bg && <color attach="background" args={[bg]} />}
           {children}
         </MeshPortalMaterial>
       </mesh>

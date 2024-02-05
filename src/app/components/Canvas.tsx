@@ -1,6 +1,12 @@
 "use client";
 import Image from "next/image";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Loading from "../components/Loading";
 import { Canvas, extend, useFrame, useThree } from "@react-three/fiber";
 import {
@@ -19,7 +25,7 @@ import Frame from "../components/Frame";
 extend(geometry);
 
 export default function CanvasContainer({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>();
   const [loading, setLoading] = useState(process.env.NODE_ENV === "production");
 
   if (loading) return <Loading setLoading={setLoading} />;
@@ -27,7 +33,7 @@ export default function CanvasContainer({ children }: { children: ReactNode }) {
   return (
     <main
       className="flex min-h-screen flex-col items-center justify-between p-24"
-      ref={ref}
+      ref={ref as MutableRefObject<HTMLElement | null>}
     >
       <Canvas
         camera={{ fov: 75, position: [0, 0, 20] }}
