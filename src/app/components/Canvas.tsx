@@ -8,14 +8,8 @@ import {
   useState,
 } from "react";
 import Loading from "../components/Loading";
-import { Canvas, extend, useFrame, useThree } from "@react-three/fiber";
-import {
-  useCursor,
-  MeshPortalMaterial,
-  CameraControls,
-  Gltf,
-  Text,
-} from "@react-three/drei";
+import { Canvas, extend } from "@react-three/fiber";
+import { Gltf } from "@react-three/drei";
 import { easing, geometry } from "maath";
 import { useParams, useRouter } from "next/navigation";
 import { DoubleSide, Vector3 } from "three";
@@ -32,7 +26,7 @@ export default function CanvasContainer({ children }: { children: ReactNode }) {
 
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-between p-24"
+      className="flex min-h-screen min-w-screen flex-col items-center justify-between p-24"
       ref={ref as MutableRefObject<HTMLElement | null>}
     >
       <Canvas
@@ -48,7 +42,6 @@ export default function CanvasContainer({ children }: { children: ReactNode }) {
         eventPrefix="client"
       >
         <color attach="background" args={["#f0f0f0"]} />
-        {/* {tea} */}
         <Frame id="02" name="tea" author="Omar Faruq Tawsif">
           <Gltf src="/fiesta_tea-transformed.glb" position={[0, -2, -3]} />
         </Frame>

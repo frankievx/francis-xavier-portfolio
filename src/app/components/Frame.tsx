@@ -77,9 +77,6 @@ export default function Frame({
       <mesh
         name={name}
         onDoubleClick={(e) => {
-          console.log("test");
-          console.log("e.object", e.object);
-          // e.stopPropagation();
           router.push("/" + e.object.name);
         }}
         onPointerOver={(e) => hover(true)}
